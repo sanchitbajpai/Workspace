@@ -33,3 +33,13 @@ export const getProjectById = async (
     "_id"
   );
 };
+
+export const getAllProjectsForUser = async (
+  userId: string
+) => {
+  return Project.find({
+    createdBy: userId,
+  })
+  .populate("createdBy", "name email")
+  .populate("organization", "name");
+};

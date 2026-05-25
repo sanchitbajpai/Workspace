@@ -147,11 +147,13 @@ export const removeMember = async (
     throw new Error("Organization not found");
   }
 
-  organization.members = organization.members.filter(
+  const filteredMembers = organization.members.filter(
     (member: any) =>
       member.user.toString() !==
       memberId
   );
+
+  organization.members = filteredMembers as any;
 
   await organization.save();
 

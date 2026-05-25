@@ -12,20 +12,22 @@ export default function Sidebar() {
   const { logout } = useAuth();
 
   return (
-    <aside className="flex w-72 shrink-0 flex-col bg-slate-950 text-slate-100">
-      <div className="border-b border-slate-800 px-6 py-5">
-        <div className="text-sm uppercase tracking-[0.3em] text-slate-500">TeamBoard</div>
-        <p className="mt-3 text-2xl font-semibold">Workspace</p>
+    <aside className="flex w-80 shrink-0 flex-col bg-slate-950 text-slate-100 shadow-lg">
+      <div className="border-b border-slate-800 px-6 py-6">
+        <div className="text-xs uppercase tracking-[0.35em] text-slate-500">TeamBoard</div>
+        <p className="mt-3 text-3xl font-semibold tracking-tight text-white">Workspace</p>
+        <p className="mt-2 max-w-[14rem] text-sm text-slate-400">A modern dashboard for your team, projects, and tasks.</p>
       </div>
-      <nav className="flex flex-1 flex-col gap-1 p-4">
+
+      <nav className="flex flex-1 flex-col gap-2 p-5">
         {links.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}
             className={({ isActive }) =>
-              `rounded-xl px-4 py-3 text-sm font-medium transition ${
+              `rounded-3xl px-4 py-3 text-sm font-medium transition ${
                 isActive
-                  ? "bg-slate-800 text-white shadow"
+                  ? "bg-slate-800 text-white shadow-[0_10px_30px_-20px_rgba(15,23,42,0.9)]"
                   : "text-slate-300 hover:bg-slate-800 hover:text-white"
               }`
             }
@@ -34,12 +36,13 @@ export default function Sidebar() {
           </NavLink>
         ))}
       </nav>
-      <div className="border-t border-slate-800 px-6 py-5 text-slate-400">
+
+      <div className="border-t border-slate-800 px-6 py-5">
         <button
           onClick={logout}
-          className="w-full rounded-xl bg-slate-800 px-4 py-3 text-left text-sm font-medium text-white transition hover:bg-slate-700"
+          className="w-full rounded-3xl bg-slate-800 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-700"
         >
-          Logout
+          Sign out
         </button>
       </div>
     </aside>

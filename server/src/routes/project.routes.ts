@@ -4,6 +4,7 @@ import { authorize } from "../middleware/role.middleware";
 import {
   createProjectHandler,
   getProjectsHandler,
+  getAllProjectsHandler,
 } from "../controllers/project.controller";
 
 const router = Router();
@@ -13,6 +14,12 @@ router.post(
   authenticate,
   authorize("OWNER", "ADMIN"),
   createProjectHandler
+);
+
+router.get(
+  "/",
+  authenticate,
+  getAllProjectsHandler
 );
 
 router.get(

@@ -7,13 +7,21 @@ export const createActivity = async (payload: {
   projectId?: string;
   taskId?: string;
 }) => {
-  return Activity.create({
+  const activityPayload: any = {
     action: payload.action,
     user: payload.userId,
     organization: payload.organizationId,
-    project: payload.projectId,
-    task: payload.taskId,
-  });
+  };
+
+  if (payload.projectId) {
+    activityPayload.project = payload.projectId;
+  }
+
+  if (payload.taskId) {
+    activityPayload.task = payload.taskId;
+  }
+
+  return Activity.create(activityPayload);
 };
 
 export const getActivities = async (

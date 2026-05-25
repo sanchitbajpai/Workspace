@@ -3,6 +3,7 @@ import { AuthRequest } from "../middleware/auth.middleware";
 import {
   createProject,
   getProjects,
+  getAllProjectsForUser,
 } from "../services/project.service";
 import { createActivity } from "../services/activity.service";
 
@@ -40,6 +41,32 @@ export const createProjectHandler =
           error instanceof Error
             ? error.message
             : "Failed to create project",
+      });
+    }
+  };
+
+export const getAllProjectsHandler =
+  async (
+    req: AuthRequest,
+    res: Response
+  ) => {
+    try {
+      const projects =
+        await getAllProjectsForUser(
+          req.userId!
+        );
+
+      res.json({
+        success: true,
+        data: projects,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message:
+          error instanceof Error
+            ? error.message
+            : "Failed to fetch projects",
       });
     }
   };

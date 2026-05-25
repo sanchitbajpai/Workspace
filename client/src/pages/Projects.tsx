@@ -66,12 +66,15 @@ export default function Projects() {
   return (
     <div className="space-y-8">
       <section className="rounded-3xl bg-white p-6 shadow-sm">
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">Projects</p>
-            <h2 className="mt-2 text-2xl font-semibold text-slate-900">Build and organize your work</h2>
+            <p className="text-sm font-semibold uppercase tracking-[0.35em] text-slate-500">Projects</p>
+            <h2 className="mt-2 text-3xl font-semibold text-slate-900">Build and organize your work</h2>
+            <p className="mt-3 text-sm text-slate-600">
+              Create a new project, add a description, and keep your team aligned on the next sprint.
+            </p>
           </div>
-          <div className="grid flex-1 gap-3 sm:grid-cols-[1fr_auto]">
+          <div className="grid w-full gap-3 sm:grid-cols-[1fr_auto] xl:w-[42rem]">
             <input
               value={name}
               onChange={(event) => setName(event.target.value)}
@@ -81,17 +84,18 @@ export default function Projects() {
             <button
               onClick={handleCreate}
               disabled={creating}
-              className="rounded-3xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-500"
+              className="rounded-3xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-500"
             >
-              {creating ? "Saving..." : "Create Project"}
+              {creating ? "Saving..." : "Create project"}
             </button>
           </div>
         </div>
+
         <textarea
           value={description}
           onChange={(event) => setDescription(event.target.value)}
-          placeholder="Project description"
-          className="mt-4 min-h-[120px] w-full rounded-3xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
+          placeholder="Add a short project summary"
+          className="mt-5 min-h-[140px] w-full rounded-3xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm text-slate-900 outline-none focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
         />
       </section>
 

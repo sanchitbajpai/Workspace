@@ -195,7 +195,7 @@ export const updateStatusHandler =
       }
 
       const organizationId =
-        task.project?.organization?.toString() ||
+        (task.project as any)?.organization?.toString() ||
         "";
 
       const role =
@@ -229,7 +229,7 @@ export const updateStatusHandler =
         action: `Moved task ${task.title} to ${req.body.status}`,
         userId: req.userId!,
         organizationId,
-        projectId: task.project?._id.toString(),
+        projectId: (task.project as any)?._id?.toString(),
         taskId: task.id,
       });
 
@@ -284,7 +284,7 @@ export const addAttachmentHandler =
       }
 
       const organizationId =
-        task.project?.organization?.toString() ||
+        (task.project as any)?.organization?.toString() ||
         "";
 
       const role =
