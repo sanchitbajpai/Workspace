@@ -4,6 +4,7 @@ import {
   createProject,
   getProjects,
 } from "../services/project.service";
+import { createActivity } from "../services/activity.service";
 
 export const createProjectHandler =
   async (
@@ -20,6 +21,13 @@ export const createProjectHandler =
             req.body.organizationId,
           userId: req.userId!,
         });
+
+      await createActivity({
+        action: `Created project ${project.name}`,
+        userId: req.userId!,
+        organizationId: req.body.organizationId,
+        projectId: project.id,
+      });
 
       res.status(201).json({
         success: true,
@@ -42,9 +50,21 @@ export const getProjectsHandler =
     res: Response
   ) => {
     try {
+      const organizationId =
+        typeof req.params.organizationId === "string"
+          ? req.params.organizationId
+          : "";
+
+      if (!organizationId) {
+        return res.status(400).json({
+          success: false,
+          message: "organizationId is required",
+        });
+      }
+
       const projects =
         await getProjects(
-          req.params.organizationId
+          organizationId
         );
 
       res.json({

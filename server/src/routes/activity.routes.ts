@@ -1,25 +1,15 @@
 import { Router } from "express";
 import { authenticate } from "../middleware/auth.middleware";
 import { authorize } from "../middleware/role.middleware";
-import {
-  createProjectHandler,
-  getProjectsHandler,
-} from "../controllers/project.controller";
+import { getActivitiesHandler } from "../controllers/activity.controller";
 
 const router = Router();
-
-router.post(
-  "/",
-  authenticate,
-  authorize("OWNER", "ADMIN"),
-  createProjectHandler
-);
 
 router.get(
   "/:organizationId",
   authenticate,
   authorize("OWNER", "ADMIN", "MEMBER"),
-  getProjectsHandler
+  getActivitiesHandler
 );
 
 export default router;

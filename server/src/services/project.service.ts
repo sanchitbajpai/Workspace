@@ -24,3 +24,12 @@ export const getProjects = async (
   })
   .populate("createdBy", "name email");
 };
+
+export const getProjectById = async (
+  projectId: string
+) => {
+  return Project.findById(projectId).populate(
+    "organization",
+    "_id"
+  );
+};
