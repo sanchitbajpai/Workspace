@@ -1,27 +1,270 @@
-# Workspace — Push helper
+# TeamBoard - Multi-Tenant Project Management SaaS
 
-Small helpers to initialize a git repo and push this workspace to GitHub.
+A full-stack project management platform inspired by Jira, Trello, and Linear.
 
-- PowerShell helper: `scripts/push.ps1`
-- Bash helper: `scripts/push.sh`
+TeamBoard enables organizations to manage projects, tasks, team members, and workflows through a modern Kanban-based interface with secure authentication, role-based access control, analytics, and real-time collaboration.
 
-Usage (PowerShell):
+---
 
-```powershell
-cd 'c:\Users\SANCHIT\workspace-app'
-.\scripts\push.ps1
-# specify remote or force: .\scripts\push.ps1 -RemoteURL 'https://github.com/sanchitbajpai/Workspace.git' -Force
+## Features
+
+### Authentication & Security
+
+- User Registration
+- User Login
+- JWT Authentication
+- Protected Routes
+- Password Hashing using bcrypt
+- Role-Based Access Control (RBAC)
+
+### Organization Management
+
+- Create Organizations
+- Invite Team Members
+- Manage Organization Members
+- Assign Member Roles
+- Multi-Tenant Architecture
+
+### Project Management
+
+- Create Projects
+- View Projects
+- Project Organization Mapping
+- Project Ownership Tracking
+
+### Task Management
+
+- Create Tasks
+- Assign Tasks
+- Task Priorities
+- Task Status Tracking
+- Task Attachments
+- Task Activity History
+
+### Kanban Board
+
+- TODO
+- IN_PROGRESS
+- REVIEW
+- DONE
+
+- Drag & Drop Workflow
+- Real-Time Status Updates
+
+### Dashboard
+
+- Organization Statistics
+- Project Statistics
+- Task Statistics
+- Completed Task Metrics
+
+### Collaboration
+
+- Activity Timeline
+- Team Member Management
+- Real-Time Updates using Socket.IO
+
+### Engineering Features
+
+- REST API Architecture
+- TypeScript Backend
+- MongoDB Data Modeling
+- React Component Architecture
+- Axios API Layer
+- Error Handling
+- Validation Layer
+- Docker Ready
+- CI/CD Ready
+
+---
+
+## Tech Stack
+
+### Frontend
+
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- React Router
+- Axios
+- React Hot Toast
+- React DnD / Drag & Drop
+
+### Backend
+
+- Node.js
+- Express.js
+- TypeScript
+- JWT
+- bcrypt
+- Multer
+- Socket.IO
+
+### Database
+
+- MongoDB
+- Mongoose
+
+### Infrastructure
+
+- Docker
+- GitHub Actions
+- Redis (Caching)
+- MongoDB Atlas
+
+---
+
+## Architecture
+
 ```
 
-Usage (bash):
+User
+│
+├── Authentication
+│
+└── Organization
+│
+├── Members
+│
+├── Projects
+│
+└── Tasks
+│
+├── Kanban Workflow
+│
+├── Activity Tracking
+│
+└── Attachments
+
+```
+
+---
+
+## Folder Structure
+
+```
+
+teamboard
+│
+├── client
+│ ├── src
+│ │ ├── api
+│ │ ├── components
+│ │ ├── context
+│ │ ├── hooks
+│ │ ├── pages
+│ │ ├── routes
+│ │ └── types
+│
+├── server
+│ ├── src
+│ │ ├── config
+│ │ ├── controllers
+│ │ ├── middleware
+│ │ ├── models
+│ │ ├── routes
+│ │ ├── services
+│ │ ├── validators
+│ │ └── utils
+
+```
+
+---
+
+## API Modules
+
+### Authentication
+
+```
+
+POST /api/auth/register
+POST /api/auth/login
+GET /api/auth/me
+
+```
+
+### Organizations
+
+```
+
+POST /api/organizations
+GET /api/organizations
+
+```
+
+### Projects
+
+```
+
+POST /api/projects
+GET /api/projects
+
+```
+
+### Tasks
+
+```
+
+POST /api/tasks
+GET /api/tasks/project/:projectId
+PATCH /api/tasks/:taskId/status
+
+```
+
+### Dashboard
+
+```
+
+GET /api/dashboard/stats
+
+```
+
+---
+
+## Local Setup
+
+### Clone Repository
 
 ```bash
-cd ~/path/to/workspace-app
-./scripts/push.sh
-# or: ./scripts/push.sh https://github.com/sanchitbajpai/Workspace.git main
+git clone https://github.com/yourusername/teamboard.git
 ```
 
-Notes:
-- The scripts will initialize a git repo if none exists, create an initial commit if needed, add/replace the `origin` remote, and push to `main`.
-- For HTTPS pushes you may be prompted for credentials or a personal access token.
-- If the remote already has commits and you want to overwrite, use the `-Force` switch (PowerShell) or `--force` argument (bash).
+### Frontend
+
+```bash
+cd client
+npm install
+npm run dev
+```
+
+### Backend
+
+```bash
+cd server
+npm install
+npm run dev
+```
+
+### Environment Variables
+
+Create `.env` inside server:
+
+```env
+PORT=5000
+
+MONGO_URI=your_mongodb_connection_string
+
+JWT_ACCESS_SECRET=your_access_secret
+
+JWT_REFRESH_SECRET=your_refresh_secret
+```
+
+---
+
+--
+
+
+## Author
+
+Sanchit Bajpai
