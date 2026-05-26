@@ -4,11 +4,13 @@ import Navbar from "./Navbar";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex min-h-screen bg-slate-100 text-slate-900">
+    <div className="min-h-screen bg-[#f8fbff] text-[#202124] transition-colors dark:bg-slate-950 dark:text-slate-100 lg:flex">
       <Sidebar />
-      <div className="flex min-h-screen flex-1 flex-col overflow-hidden">
+      <div className="flex min-h-screen flex-1 flex-col">
         <Navbar />
-        <main className="flex-1 overflow-y-auto p-6 xl:p-8">{children}</main>
+        <main className="flex-1 px-4 py-5 sm:px-6 lg:px-8 lg:py-7">
+          <div className="mx-auto w-full max-w-7xl">{children}</div>
+        </main>
       </div>
     </div>
   );

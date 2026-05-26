@@ -12,6 +12,22 @@ import { getOrganizationRole } from "../services/organization.service";
 import { getProjectById } from "../services/project.service";
 import { createActivity } from "../services/activity.service";
 
+const getDocumentId = (value: any) => {
+  if (!value) {
+    return "";
+  }
+
+  if (typeof value === "string") {
+    return value;
+  }
+
+  if (value._id) {
+    return value._id.toString();
+  }
+
+  return value.toString();
+};
+
 export const createTaskHandler =
   async (
     req: AuthRequest,
@@ -31,8 +47,7 @@ export const createTaskHandler =
       }
 
       const organizationId =
-        project.organization?.toString() ||
-        "";
+        getDocumentId(project.organization);
 
       const role =
         await getOrganizationRole(
@@ -195,8 +210,7 @@ export const updateStatusHandler =
       }
 
       const organizationId =
-        (task.project as any)?.organization?.toString() ||
-        "";
+        getDocumentId((task.project as any)?.organization);
 
       const role =
         await getOrganizationRole(
@@ -284,8 +298,7 @@ export const addAttachmentHandler =
       }
 
       const organizationId =
-        (task.project as any)?.organization?.toString() ||
-        "";
+        getDocumentId((task.project as any)?.organization);
 
       const role =
         await getOrganizationRole(

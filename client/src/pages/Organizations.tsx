@@ -57,13 +57,13 @@ export default function Organizations() {
   }
 
   return (
-    <div className="space-y-8">
-      <section className="rounded-3xl bg-white p-6 shadow-sm">
-        <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+    <div className="space-y-6">
+      <section className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-[#dadce0] dark:bg-slate-900 dark:ring-slate-800 sm:p-6">
+        <div className="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.35em] text-slate-500">Organizations</p>
-            <h2 className="mt-2 text-3xl font-semibold text-slate-900">Team directories</h2>
-            <p className="mt-3 max-w-2xl text-sm text-slate-600">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#1a73e8]">Organizations</p>
+            <h2 className="mt-2 text-3xl font-semibold tracking-tight text-[#202124] dark:text-slate-100">Team directories</h2>
+            <p className="mt-3 max-w-2xl text-sm text-[#5f6368] dark:text-slate-400">
               Create and manage the organizations that structure your projects and team collaboration.
             </p>
           </div>
@@ -72,12 +72,12 @@ export default function Organizations() {
               value={name}
               onChange={(event) => setName(event.target.value)}
               placeholder="Organization name"
-              className="rounded-3xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
+              className="rounded-2xl border border-[#dadce0] bg-white px-4 py-3 text-sm text-[#202124] outline-none transition focus:border-[#4285f4] focus:ring-4 focus:ring-[#d2e3fc] dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:focus:ring-blue-500/20"
             />
             <button
               onClick={handleCreate}
               disabled={creating}
-              className="rounded-3xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-500"
+              className="rounded-full bg-[#1a73e8] px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#185abc] disabled:cursor-not-allowed disabled:bg-[#9aa0a6]"
             >
               {creating ? "Creating..." : "New organization"}
             </button>
@@ -90,13 +90,13 @@ export default function Organizations() {
       {organizations.length ? (
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {organizations.map((organization) => (
-            <div key={organization._id} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+            <div key={organization._id} className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-[#dadce0] transition hover:-translate-y-0.5 hover:shadow-md dark:bg-slate-900 dark:ring-slate-800">
               <div className="flex items-center justify-between gap-3">
-                <p className="text-xs uppercase tracking-[0.35em] text-slate-400">Organization</p>
-                <span className="rounded-2xl bg-slate-100 px-3 py-1 text-xs font-semibold uppercase text-slate-600">Active</span>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#1a73e8]">Organization</p>
+                <span className="rounded-full bg-[#e6f4ea] px-3 py-1 text-xs font-semibold uppercase text-[#137333] ring-1 ring-[#ceead6]">Active</span>
               </div>
-              <h3 className="mt-4 text-xl font-semibold text-slate-900">{organization.name}</h3>
-              <p className="mt-3 text-sm text-slate-500">Created {new Date(organization.createdAt).toLocaleDateString()}</p>
+              <h3 className="mt-4 text-xl font-semibold text-[#202124] dark:text-slate-100">{organization.name}</h3>
+              <p className="mt-3 text-sm text-[#5f6368] dark:text-slate-400">Created {new Date(organization.createdAt).toLocaleDateString()}</p>
             </div>
           ))}
         </div>

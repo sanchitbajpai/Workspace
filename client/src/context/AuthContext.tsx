@@ -6,6 +6,7 @@ import type { User } from "../types";
 type AuthContextValue = {
   token: string | null;
   user: User | null;
+  isLoading: boolean;
   login: (token: string) => Promise<void>;
   logout: () => void;
 };
@@ -20,25 +21,55 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const stored = localStorage.getItem("user");
     return stored ? (JSON.parse(stored) as User) : null;
   });
+  const [isLoading, setIsLoading] = useState(() => Boolean(token));
 
   useEffect(() => {
-    if (token && !user) {
-      getCurrentUserApi()
-        .then((response) => {
-          if (response.data.success) {
-            const current = response.data.data;
-            setUser({
-              id: current._id || current.id,
-              name: current.name,
-              email: current.email,
-            });
-          }
-        })
-        .catch(() => {
+    const syncCurrentUser = async () => {
+      if (!token) {
+        setUser(null);
+        setIsLoading(false);
+        return;
+      }
+
+      setIsLoading(true);
+
+      try {
+        const response = await getCurrentUserApi();
+
+        if (response.data.success) {
+          const current = response.data.data;
+          setUser({
+            id: current._id || current.id,
+            name: current.name,
+            email: current.email,
+          });
+        } else {
+          setToken(null);
           setUser(null);
-        });
-    }
-  }, [token, user]);
+        }
+      } catch {
+        setToken(null);
+        setUser(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    syncCurrentUser();
+  }, [token]);
+
+  useEffect(() => {
+    const handleUnauthorized = () => {
+      setToken(null);
+      setUser(null);
+    };
+
+    window.addEventListener("auth:unauthorized", handleUnauthorized);
+
+    return () => {
+      window.removeEventListener("auth:unauthorized", handleUnauthorized);
+    };
+  }, []);
 
   useEffect(() => {
     if (token) {
@@ -57,6 +88,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [user]);
 
   const login = async (newToken: string) => {
+    setIsLoading(true);
     setToken(newToken);
     localStorage.setItem("token", newToken);
 
@@ -72,7 +104,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         });
       }
     } catch {
+      setToken(null);
       setUser(null);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -82,7 +117,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ token, user, login, logout }}>
+    <AuthContext.Provider value={{ token, user, isLoading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
